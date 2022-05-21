@@ -12,6 +12,6 @@ dependencies {
     // Javax Inject
     api("javax.inject:javax.inject:1")
 
-    // Kotlin
+    // Kotlin Coroutines
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 }
