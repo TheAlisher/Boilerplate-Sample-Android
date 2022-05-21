@@ -27,7 +27,8 @@ class SignInFragment : BaseFragment<SignInViewModel, FragmentSignInBinding>(
     override fun setupSubscribers() {
         viewModel.signInState.collectUIState(
             state = {
-                it.setupViewVisibility(binding.groupSignIn, binding.loaderSignIn)
+                // скрыть показать group и loader
+                it.setupViewVisibility(binding.groupSignIn, binding.loaderSignIn, true)
             },
             onError = {
                 // Отобразить ошибку
