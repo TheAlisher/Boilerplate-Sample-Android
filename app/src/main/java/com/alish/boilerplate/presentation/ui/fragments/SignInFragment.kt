@@ -26,6 +26,9 @@ class SignInFragment : BaseFragment<SignInViewModel, FragmentSignInBinding>(
 
     override fun setupSubscribers() {
         viewModel.signInState.collectUIState(
+            state = {
+                it.setupViewVisibility(binding.groupSignIn, binding.loaderSignIn)
+            },
             onError = {
                 // Отобразить ошибку
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
