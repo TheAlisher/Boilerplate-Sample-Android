@@ -53,7 +53,7 @@ dependencies {
 
     // UI Components
     implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.6")
 
     // Core
