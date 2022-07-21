@@ -66,8 +66,8 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.5.0")
 
     // Lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.42")
