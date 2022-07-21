@@ -49,7 +49,7 @@ dependencies {
     implementation(project(":domain"))
 
     // Kotlin
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     // UI Components
     implementation("com.google.android.material:material:1.6.1")
