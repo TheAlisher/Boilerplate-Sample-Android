@@ -1,4 +1,4 @@
-package com.alish.boilerplate.presentation
+package com.alish.boilerplate
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
