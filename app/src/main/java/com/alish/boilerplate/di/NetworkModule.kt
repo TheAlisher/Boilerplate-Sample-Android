@@ -1,9 +1,12 @@
 package com.alish.boilerplate.di
 
-import com.alish.boilerplate.data.remote.RetrofitClient
+import android.content.Context
+import com.alish.boilerplate.data.remote.apiservices.SignInApiService
+import com.alish.boilerplate.data.remote.apiservices.SignInApiServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -14,6 +17,8 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideSignInApiService(
-        retrofitClient: RetrofitClient
-    ) = retrofitClient.provideSignInApiService()
+        @ApplicationContext context: Context
+    ): SignInApiService {
+        return SignInApiServiceImpl(context)
+    }
 }

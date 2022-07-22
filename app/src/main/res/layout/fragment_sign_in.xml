@@ -1,16 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.fragments.SignInFragment">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".presentation.ui.fragments.sign.SignInFragment">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/loader_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout_sign_in_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/username"
+        android:tag="@string/username"
+        app:layout_constraintBottom_toTopOf="@id/inputLayout_sign_in_password"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEdit_sign_in_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout_sign_in_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/password"
+        android:tag="@string/password"
+        app:layout_constraintBottom_toTopOf="@id/button_sign_in"
+        app:layout_constraintTop_toBottomOf="@id/inputLayout_sign_in_username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEdit_sign_in_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_sign_in"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Sign in" />
+        android:layout_margin="10dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="@string/sign_in"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputLayout_sign_in_password" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_sign_in"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="inputLayout_sign_in_username, inputLayout_sign_in_password, button_sign_in" />
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
