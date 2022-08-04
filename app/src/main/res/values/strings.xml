@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Boilerplate-Sample-Android</string>
 
+    <!--region FragmentSignIn-->
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="sign_in">sign in</string>
+    <!--endregion-->
+
 
 </resources>

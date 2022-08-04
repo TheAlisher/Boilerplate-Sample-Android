@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
+import com.alish.boilerplate.domain.utils.NetworkError
 import com.alish.boilerplate.presentation.ui.state.UIState
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlinx.coroutines.flow.*
@@ -66,7 +67,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
     protected fun <T> StateFlow<UIState<T>>.collectUIState(
         lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
         state: ((UIState<T>) -> Unit)? = null,
-        onError: ((error: String) -> Unit),
+        onError: ((error: NetworkError) -> Unit),
         onSuccess: ((data: T) -> Unit)
     ) {
         collectFlowSafely(lifecycleState) {
@@ -84,11 +85,11 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
 
     /**
      * Setup views visibility depending on [UIState] states.
-     * @param isNavigateWhenSuccess is responsible for displaying views depending on whether
+     * @param isShowViewIfSuccess is responsible for displaying views depending on whether
      * to navigate further or stay this Fragment
      */
     protected fun <T> UIState<T>.setupViewVisibility(
-        group: Group, loader: CircularProgressIndicator, isNavigateWhenSuccess: Boolean = false
+        group: Group, loader: CircularProgressIndicator, isShowViewIfSuccess: Boolean = false
     ) {
         fun showLoader(isVisible: Boolean) {
             group.isVisible = !isVisible
@@ -99,7 +100,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
             is UIState.Idle -> {}
             is UIState.Loading -> showLoader(true)
             is UIState.Error -> showLoader(false)
-            is UIState.Success -> if (!isNavigateWhenSuccess) showLoader(false)
+            is UIState.Success -> if (!isShowViewIfSuccess) showLoader(false)
         }
     }
 }

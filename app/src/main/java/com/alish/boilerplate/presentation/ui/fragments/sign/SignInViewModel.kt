@@ -1,4 +1,4 @@
-package com.alish.boilerplate.presentation.ui.fragments
+package com.alish.boilerplate.presentation.ui.fragments.sign
 
 import com.alish.boilerplate.domain.models.sign.SignIn
 import com.alish.boilerplate.domain.models.sign.UserSignIn
@@ -16,7 +16,7 @@ class SignInViewModel @Inject constructor(
     private val _signInState = MutableUIStateFlow<SignIn>()
     val signInState = _signInState.asStateFlow()
 
-    fun signIn(userSignIn: UserSignIn) {
-        signInUseCase(userSignIn).collectRequest(_signInState) { it }
+    fun signIn(username: String, password: String) {
+        signInUseCase(UserSignIn(username, password)).collectRequest(_signInState) { it }
     }
 }
