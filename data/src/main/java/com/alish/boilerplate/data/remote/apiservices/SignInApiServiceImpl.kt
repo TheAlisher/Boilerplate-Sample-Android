@@ -17,8 +17,8 @@ class SignInApiServiceImpl @Inject constructor(
     private val context: Context
 ) : SignInApiService {
 
-    private inline fun <reified T> fromJson(fileName: String): T {
-        return Gson().fromJson(fileName, object : TypeToken<T>() {}.type)
+    private inline fun <reified T> fromJson(file: String): T {
+        return Gson().fromJson(file, object : TypeToken<T>() {}.type)
     }
 
     private fun jsonFromAssets(fileName: String): String {
