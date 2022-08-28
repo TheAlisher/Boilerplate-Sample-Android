@@ -4,7 +4,7 @@ plugins {
     kotlin("android") version "1.7.10" apply false
 
     // Navigation Safe Args
-    id("androidx.navigation.safeargs.kotlin") version "2.5.0" apply false
+    id("androidx.navigation.safeargs.kotlin") version "2.5.1" apply false
 
     // Hilt
     id("com.google.dagger.hilt.android") version "2.42" apply false
