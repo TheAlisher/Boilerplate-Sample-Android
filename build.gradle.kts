@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application") version "7.2.2" apply false
     id("com.android.library") version "7.2.2" apply false
-    kotlin("android") version "1.7.0" apply false
+    kotlin("android") version "1.7.10" apply false
 
     // Navigation Safe Args
     id("androidx.navigation.safeargs.kotlin") version "2.5.0" apply false
