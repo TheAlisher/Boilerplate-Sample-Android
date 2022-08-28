@@ -66,7 +66,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.5.2")
 
     // Lifecycle
-    val lifecycleVersion = "2.5.0"
+    val lifecycleVersion = "2.5.1"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
