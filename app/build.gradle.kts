@@ -57,13 +57,13 @@ dependencies {
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.6")
 
     // Core
-    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.core:core-ktx:1.9.0")
 
     // Activity
-    implementation("androidx.activity:activity-ktx:1.5.1")
+    implementation("androidx.activity:activity-ktx:1.6.0")
 
     // Fragment
-    implementation("androidx.fragment:fragment-ktx:1.5.2")
+    implementation("androidx.fragment:fragment-ktx:1.5.3")
 
     // Lifecycle
     val lifecycleVersion = "2.5.1"
@@ -71,12 +71,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
     // Navigation
-    val navVersion = "2.5.1"
+    val navVersion = "2.5.2"
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     // Hilt
-    val daggerVersion = "2.43.2"
+    val daggerVersion = "2.44"
     implementation("com.google.dagger:hilt-android:$daggerVersion")
     kapt("com.google.dagger:hilt-compiler:$daggerVersion")
 }
