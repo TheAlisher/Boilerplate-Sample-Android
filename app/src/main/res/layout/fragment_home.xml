@@ -5,11 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.fragments.home.HomeFragment">
 
-    <TextView
+    <ProgressBar
+        android:id="@+id/loader_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="HomeFragment"
-        android:textSize="20sp" />
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_home_foo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_foo" />
+
 
 </FrameLayout>

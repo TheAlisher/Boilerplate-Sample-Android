@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.PagingData
 import androidx.viewbinding.ViewBinding
 import com.alish.boilerplate.domain.utils.NetworkError
 import com.alish.boilerplate.presentation.ui.state.UIState
@@ -81,6 +82,16 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
                 }
             }
         }
+    }
+
+    /**
+     * Collect [PagingData] with [collectFlowSafely]
+     */
+    protected fun <T : Any> Flow<PagingData<T>>.collectPaging(
+        lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
+        action: suspend (value: PagingData<T>) -> Unit
+    ) {
+        collectFlowSafely(lifecycleState) { this.collectLatest { action(it) } }
     }
 
     /**

@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName
 class SignInResponse(
     @SerializedName("token")
     val token: String
-) : DataMapper<SignInResponse, SignIn> {
+) : DataMapper<SignIn> {
 
-    override fun SignInResponse.mapToDomain() = SignIn(
+    override fun mapToDomain() = SignIn(
         token
     )
 }
