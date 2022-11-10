@@ -2,7 +2,7 @@ package com.alish.boilerplate.data.repositories
 
 import com.alish.boilerplate.data.remote.apiservices.SignInApiService
 import com.alish.boilerplate.data.remote.dtos.sign.fromDomain
-import com.alish.boilerplate.data.repositories.base.BaseRepository
+import com.alish.boilerplate.data.base.BaseRepository
 import com.alish.boilerplate.domain.models.sign.UserSignIn
 import com.alish.boilerplate.domain.repositories.SignInRepository
 import javax.inject.Inject
@@ -12,11 +12,9 @@ class SignInRepositoryImpl @Inject constructor(
 ) : BaseRepository(), SignInRepository {
 
     override fun signIn(userSignIn: UserSignIn) = doNetworkRequest {
-        service.signIn(userSignIn.fromDomain()).also { data ->
-            data.body()?.let {
-                // save token
-                it.token
-            }
+        service.signIn(userSignIn.fromDomain()).data {
+            //TODO: something with data
+            it.token
         }
     }
 }

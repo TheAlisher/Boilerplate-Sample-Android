@@ -1,6 +1,8 @@
 package com.alish.boilerplate.di
 
+import com.alish.boilerplate.data.repositories.FooRepositoryImpl
 import com.alish.boilerplate.data.repositories.SignInRepositoryImpl
+import com.alish.boilerplate.domain.repositories.FooRepository
 import com.alish.boilerplate.domain.repositories.SignInRepository
 import dagger.Binds
 import dagger.Module
@@ -15,4 +17,9 @@ abstract class RepositoriesModule {
     abstract fun bindSignInRepository(
         signInRepositoryImpl: SignInRepositoryImpl
     ): SignInRepository
+
+    @Binds
+    abstract fun bindFooRepository(
+        fooRepositoryImpl: FooRepositoryImpl
+    ): FooRepository
 }

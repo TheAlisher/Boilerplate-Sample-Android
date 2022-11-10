@@ -1,0 +1,46 @@
+{
+  "prev": 1,
+  "next": 3,
+  "data": [
+    {
+      "id": 11,
+      "bar": "quux"
+    },
+    {
+      "id": 12,
+      "bar": "quux"
+    },
+    {
+      "id": 13,
+      "bar": "quux"
+    },
+    {
+      "id": 14,
+      "bar": "quux"
+    },
+    {
+      "id": 15,
+      "bar": "quux"
+    },
+    {
+      "id": 16,
+      "bar": "quux"
+    },
+    {
+      "id": 17,
+      "bar": "quux"
+    },
+    {
+      "id": 18,
+      "bar": "quux"
+    },
+    {
+      "id": 19,
+      "bar": "quux"
+    },
+    {
+      "id": 20,
+      "bar": "quux"
+    }
+  ]
+}

@@ -1,8 +1,10 @@
 package com.alish.boilerplate.di
 
 import android.content.Context
+import com.alish.boilerplate.data.remote.apiservices.FooApiService
 import com.alish.boilerplate.data.remote.apiservices.SignInApiService
-import com.alish.boilerplate.data.remote.apiservices.SignInApiServiceImpl
+import com.alish.boilerplate.data.remote.apiservices.mock.FooApiServiceImpl
+import com.alish.boilerplate.data.remote.apiservices.mock.SignInApiServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +22,13 @@ object NetworkModule {
         @ApplicationContext context: Context
     ): SignInApiService {
         return SignInApiServiceImpl(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFooApiService(
+        @ApplicationContext context: Context
+    ): FooApiService {
+        return FooApiServiceImpl(context)
     }
 }

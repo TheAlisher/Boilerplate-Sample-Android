@@ -1,10 +1,11 @@
-package com.alish.boilerplate.data.remote.apiservices
+package com.alish.boilerplate.data.remote.apiservices.mock
 
 import android.content.Context
+import com.alish.boilerplate.data.remote.apiservices.SignInApiService
 import com.alish.boilerplate.data.remote.dtos.sign.SignInResponse
 import com.alish.boilerplate.data.remote.dtos.sign.UserSignInDto
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.alish.boilerplate.data.utils.fromJson
+import com.alish.boilerplate.data.utils.jsonFromAssets
 import kotlinx.coroutines.delay
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
@@ -17,20 +18,12 @@ class SignInApiServiceImpl @Inject constructor(
     private val context: Context
 ) : SignInApiService {
 
-    private inline fun <reified T> fromJson(file: String): T {
-        return Gson().fromJson(file, object : TypeToken<T>() {}.type)
-    }
-
-    private fun jsonFromAssets(fileName: String): String {
-        return context.assets.open(fileName).bufferedReader().use { it.readText() }
-    }
-
     override suspend fun signIn(userSignInDto: UserSignInDto): Response<SignInResponse> {
         delay(1000)
         return if (userSignInDto.username == "OnePunchMan" && userSignInDto.password == "Fubuk1") {
-            Response.success(fromJson(jsonFromAssets("SignInResponse.json")))
+            Response.success(fromJson(context.jsonFromAssets("SignInResponse.json")))
         } else {
-            Response.error(422, jsonFromAssets("ErrorBody.json").toResponseBody())
+            Response.error(422, context.jsonFromAssets("ErrorBody.json").toResponseBody())
         }
     }
 }
