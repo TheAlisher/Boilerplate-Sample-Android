@@ -2,6 +2,7 @@ package com.alish.boilerplate.presentation.base
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
@@ -14,6 +15,7 @@ import androidx.viewbinding.ViewBinding
 import com.alish.boilerplate.domain.utils.NetworkError
 import com.alish.boilerplate.presentation.ui.state.UIState
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -112,6 +114,27 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
             is UIState.Loading -> showLoader(true)
             is UIState.Error -> showLoader(false)
             is UIState.Success -> if (!isShowViewIfSuccess) showLoader(false)
+        }
+    }
+
+    /**
+     * [NetworkError] extension function for setup errors from server side
+     */
+    fun NetworkError.setupApiErrors(vararg inputs: TextInputLayout) = when (this) {
+        is NetworkError.Unexpected -> {
+            Toast.makeText(context, this.error, Toast.LENGTH_LONG).show()
+        }
+        is NetworkError.Api -> {
+            for (input in inputs) {
+                error[input.tag].also { error ->
+                    if (error == null) {
+                        input.isErrorEnabled = false
+                    } else {
+                        input.error = error.joinToString()
+                        this.error.remove(input.tag)
+                    }
+                }
+            }
         }
     }
 }
