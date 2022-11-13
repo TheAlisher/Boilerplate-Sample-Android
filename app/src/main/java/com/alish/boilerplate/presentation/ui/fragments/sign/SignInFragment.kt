@@ -7,8 +7,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.alish.boilerplate.R
 import com.alish.boilerplate.databinding.FragmentSignInBinding
 import com.alish.boilerplate.presentation.base.BaseFragment
-import com.alish.boilerplate.presentation.extensions.setupApiErrors
-import com.alish.boilerplate.presentation.extensions.setupUnexpectedErrors
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,7 +36,6 @@ class SignInFragment : BaseFragment<SignInViewModel, FragmentSignInBinding>(
                     inputLayoutSignInUsername,
                     inputLayoutSignInPassword
                 )
-                it.setupUnexpectedErrors(requireContext())
             },
             onSuccess = {
                 Toast.makeText(requireContext(), it.token, Toast.LENGTH_LONG).show()
