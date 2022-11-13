@@ -12,9 +12,11 @@ class SignInRepositoryImpl @Inject constructor(
 ) : BaseRepository(), SignInRepository {
 
     override fun signIn(userSignIn: UserSignIn) = doNetworkRequest {
-        service.signIn(userSignIn.fromDomain()).data {
-            //TODO: something with data
-            it.token
+        service.signIn(userSignIn.fromDomain()).onSuccess { data ->
+            /**
+             * Do something with [data]
+             */
+            data.token
         }
     }
 }
