@@ -3,24 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment">
+    tools:ignore="InvalidNavigation">
+
+    <action
+        android:id="@+id/action_global_signFlowFragment"
+        app:destination="@id/signFlowFragment"
+        app:popUpTo="@id/nav_graph" />
+
+    <action
+        android:id="@+id/action_global_mainFlowFragment"
+        app:destination="@id/mainFlowFragment"
+        app:popUpTo="@id/nav_graph" />
 
     <fragment
-        android:id="@+id/signInFragment"
-        android:name="com.alish.boilerplate.presentation.ui.fragments.sign.SignInFragment"
-        android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in">
-        <action
-            android:id="@+id/action_signInFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/nav_graph" />
-    </fragment>
+        android:id="@+id/signFlowFragment"
+        android:name="com.alish.boilerplate.presentation.ui.fragments.sign.SignFlowFragment"
+        android:label="flow_fragment_sign"
+        tools:layout="@layout/flow_fragment_sign" />
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.alish.boilerplate.presentation.ui.fragments.home.HomeFragment"
+        android:id="@+id/mainFlowFragment"
+        android:name="com.alish.boilerplate.presentation.ui.fragments.main.MainFlowFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/flow_fragment_main" />
 
 
 </navigation>

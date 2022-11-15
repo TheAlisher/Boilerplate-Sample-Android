@@ -3,20 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.fragments.main.home.HomeFragment">
+    tools:context=".presentation.ui.fragments.main.profile.ProfileFragment">
 
-    <ProgressBar
-        android:id="@+id/loader_home"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_home_foo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_foo" />
+        android:text="@string/profile"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
 
 
 </FrameLayout>

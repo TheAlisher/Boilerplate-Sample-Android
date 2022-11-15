@@ -1,4 +1,4 @@
-package com.alish.boilerplate.presentation.ui.fragments.sign
+package com.alish.boilerplate.presentation.ui.fragments.sign.`in`
 
 import com.alish.boilerplate.domain.models.sign.SignIn
 import com.alish.boilerplate.domain.models.sign.UserSignIn

@@ -1,4 +1,4 @@
-package com.alish.boilerplate.presentation.ui.fragments.sign
+package com.alish.boilerplate.presentation.ui.fragments.sign.`in`
 
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -7,6 +7,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.alish.boilerplate.R
 import com.alish.boilerplate.databinding.FragmentSignInBinding
 import com.alish.boilerplate.presentation.base.BaseFragment
+import com.alish.boilerplate.presentation.extensions.activityNavController
+import com.alish.boilerplate.presentation.extensions.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,12 +19,23 @@ class SignInFragment : BaseFragment<SignInViewModel, FragmentSignInBinding>(
     override val viewModel: SignInViewModel by viewModels()
     override val binding by viewBinding(FragmentSignInBinding::bind)
 
-    override fun setupListeners() = with(binding) {
+    override fun setupListeners() {
+        clicKSignIn()
+        clickSignUp()
+    }
+
+    private fun clicKSignIn() = with(binding) {
         buttonSignIn.setOnClickListener {
             viewModel.signIn(
                 inputEditSignInUsername.text.toString().trim(),
                 inputEditSignInPassword.text.toString().trim()
             )
+        }
+    }
+
+    private fun clickSignUp() {
+        binding.buttonSignUp.setOnClickListener {
+            findNavController().navigateSafely(R.id.action_signInFragment_to_signUpFragment)
         }
     }
 
@@ -39,7 +52,7 @@ class SignInFragment : BaseFragment<SignInViewModel, FragmentSignInBinding>(
             },
             onSuccess = {
                 Toast.makeText(requireContext(), it.token, Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
+                activityNavController().navigateSafely(R.id.action_global_mainFlowFragment)
             }
         )
     }

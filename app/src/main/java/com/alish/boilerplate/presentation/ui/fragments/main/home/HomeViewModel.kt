@@ -1,4 +1,4 @@
-package com.alish.boilerplate.presentation.ui.fragments.home
+package com.alish.boilerplate.presentation.ui.fragments.main.home
 
 import com.alish.boilerplate.domain.usecases.FetchFooUseCase
 import com.alish.boilerplate.presentation.base.BaseViewModel
