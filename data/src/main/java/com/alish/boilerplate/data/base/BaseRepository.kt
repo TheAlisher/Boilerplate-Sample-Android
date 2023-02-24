@@ -21,7 +21,14 @@ abstract class BaseRepository {
     /**
      * Do network request
      *
-     * @return result in [flow] with [Either]
+     * @param request http request function from api service
+     *
+     * @return [NetworkError] or [Response.body] in [Flow] with [Either]
+     *
+     * @see [Response]
+     * @see [Flow]
+     * @see [Either]
+     * @see [NetworkError]
      */
     protected fun <T : DataMapper<S>, S> doNetworkRequest(
         request: suspend () -> Response<T>
@@ -41,6 +48,10 @@ abstract class BaseRepository {
 
     /**
      * Convert network error from server side
+     *
+     * @receiver [ResponseBody]
+     * @see Response.errorBody
+     * @see Gson.fromJson
      */
     private fun ResponseBody?.toApiError(): MutableMap<String, List<String>> {
         return Gson().fromJson(
@@ -50,7 +61,21 @@ abstract class BaseRepository {
     }
 
     /**
-     * Get non-nullable body from request
+     * Get non-nullable body from network request
+     *
+     * &nbsp
+     *
+     * ## How to use:
+     * ```
+     * override fun fetchFoo() = doNetworkRequestWithMapping {
+     *     service.fetchFoo().onSuccess { data ->
+     *         make something with data
+     *     }
+     * }
+     * ```
+     *
+     * @see Response.body
+     * @see let
      */
     protected inline fun <T : Response<S>, S> T.onSuccess(block: (S) -> Unit): T {
         this.body()?.let(block)
@@ -59,6 +84,15 @@ abstract class BaseRepository {
 
     /**
      * Do network paging request with default params
+     *
+     * &nbsp
+     *
+     * ## How to use:
+     * ```
+     * override fun fetchFooPaging() = doPagingRequest({ FooPagingSource(service) })
+     * ```
+     *
+     * @see BasePagingSource
      */
     protected fun <ValueDto : DataMapper<Value>, Value : Any> doPagingRequest(
         pagingSource: BasePagingSource<ValueDto, Value>,
