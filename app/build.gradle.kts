@@ -63,7 +63,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.6.1")
 
     // Fragment
-    implementation("androidx.fragment:fragment-ktx:1.5.3")
+    implementation("androidx.fragment:fragment-ktx:1.5.5")
 
     // Lifecycle
     val lifecycleVersion = "2.5.1"
