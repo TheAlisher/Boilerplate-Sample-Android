@@ -1,10 +1,9 @@
 package com.alish.boilerplate.domain.repositories
 
-import androidx.paging.PagingData
 import com.alish.boilerplate.domain.models.foo.Foo
-import kotlinx.coroutines.flow.Flow
+import com.alish.boilerplate.domain.utils.RemotePagingWrapper
 
 interface FooRepository {
 
-    fun fetchFoo(): Flow<PagingData<Foo>>
+    fun fetchFoo(): RemotePagingWrapper<Foo>
 }
