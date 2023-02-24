@@ -29,7 +29,7 @@ class SignInFragment : BaseFragment<SignInViewModel, FragmentSignInBinding>(
     override fun setupSubscribers() = with(binding) {
         viewModel.signInState.collectUIState(
             state = {
-                it.setupViewVisibility(groupSignIn, loaderSignIn, true)
+                it.setupViewVisibility(groupSignIn, loaderSignIn, false)
             },
             onError = {
                 it.setupApiErrors(
