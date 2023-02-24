@@ -54,7 +54,7 @@ dependencies {
     // UI Components
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.6")
+    implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.8")
 
     // Core
     implementation("androidx.core:core-ktx:1.9.0")
