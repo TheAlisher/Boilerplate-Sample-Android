@@ -13,11 +13,6 @@ sealed class NetworkError {
     class Unexpected(val error: String) : NetworkError()
 
     /**
-     * Default errors from server side
-     */
-    class Api(val error: String) : NetworkError()
-
-    /**
      * Errors for display in inputs
      *
      * @param error

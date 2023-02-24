@@ -30,7 +30,7 @@ abstract class BaseRepository {
             if (it.isSuccessful && it.body() != null) {
                 emit(Either.Right(it.body()!!.mapToDomain()))
             } else {
-                emit(Either.Left(NetworkError.Api(it.errorBody().toApiError())))
+                emit(Either.Left(NetworkError.ApiInputs(it.errorBody().toApiError())))
             }
         }
     }.flowOn(Dispatchers.IO).catch { exception ->

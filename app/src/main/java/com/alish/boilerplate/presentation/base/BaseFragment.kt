@@ -124,7 +124,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
         is NetworkError.Unexpected -> {
             Toast.makeText(context, this.error, Toast.LENGTH_LONG).show()
         }
-        is NetworkError.Api -> {
+        is NetworkError.ApiInputs -> {
             for (input in inputs) {
                 error[input.tag].also { error ->
                     if (error == null) {
