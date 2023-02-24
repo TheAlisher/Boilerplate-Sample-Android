@@ -14,10 +14,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+/**
+ * Base class for all [ViewModel]s
+ *
+ * @author Alish
+ */
 abstract class BaseViewModel : ViewModel() {
 
     /**
-     * Creates [MutableStateFlow] with [UIState] and the given initial state [UIState.Idle]
+     * Creates [MutableStateFlow] with [UIState] and the given initial value [UIState.Idle]
      */
     @Suppress("FunctionName")
     protected fun <T> MutableUIStateFlow() = MutableStateFlow<UIState<T>>(UIState.Idle())
@@ -25,7 +30,7 @@ abstract class BaseViewModel : ViewModel() {
     /**
      * Reset [MutableUIStateFlow] to [UIState.Idle]
      */
-    fun <T> MutableStateFlow<UIState<T>>.reset() {
+    protected fun <T> MutableStateFlow<UIState<T>>.reset() {
         value = UIState.Idle()
     }
 
@@ -54,7 +59,8 @@ abstract class BaseViewModel : ViewModel() {
      * @return [UIState] depending request result
      */
     protected fun <T, S> Flow<Either<NetworkError, T>>.collectRequest(
-        state: MutableStateFlow<UIState<S>>, mappedData: (T) -> S
+        state: MutableStateFlow<UIState<S>>,
+        mappedData: (T) -> S
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             state.value = UIState.Loading()

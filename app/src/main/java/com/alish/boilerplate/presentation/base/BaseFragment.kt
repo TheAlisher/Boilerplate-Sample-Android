@@ -16,9 +16,15 @@ import com.alish.boilerplate.domain.utils.NetworkError
 import com.alish.boilerplate.presentation.ui.state.UIState
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
+/**
+ * Base class for [Fragment]s that work with data
+ *
+ * @author Alish
+ */
 abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
     @LayoutRes layoutId: Int
 ) : Fragment(layoutId) {
@@ -48,22 +54,11 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
     }
 
     /**
-     * Collect flow safely with [repeatOnLifecycle] API
-     */
-    protected fun collectFlowSafely(
-        lifecycleState: Lifecycle.State,
-        collect: suspend () -> Unit
-    ) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(lifecycleState) {
-                collect()
-            }
-        }
-    }
-
-    /**
-     * Collect [UIState] with [collectFlowSafely] and optional states params
-     * @param state for working with all states
+     * Collect [UIState] with [launchRepeatOnLifecycle]
+     *
+     * @receiver [StateFlow] with [UIState]
+     *
+     * @param state optional, for working with all states
      * @param onError for error handling
      * @param onSuccess for working with data
      */
@@ -73,8 +68,8 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
         onError: ((error: NetworkError) -> Unit),
         onSuccess: ((data: T) -> Unit)
     ) {
-        collectFlowSafely(lifecycleState) {
-            this.collect {
+        launchRepeatOnLifecycle(lifecycleState) {
+            this@collectUIState.collect {
                 state?.invoke(it)
                 when (it) {
                     is UIState.Idle -> {}
@@ -87,22 +82,26 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
     }
 
     /**
-     * Collect [PagingData] with [collectFlowSafely]
+     * Collect [PagingData] with [launchRepeatOnLifecycle]
+     *
+     * @receiver [Flow] with [PagingData]
      */
     protected fun <T : Any> Flow<PagingData<T>>.collectPaging(
         lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
         action: suspend (value: PagingData<T>) -> Unit
     ) {
-        collectFlowSafely(lifecycleState) { this.collectLatest { action(it) } }
+        launchRepeatOnLifecycle(lifecycleState) { this@collectPaging.collectLatest { action(it) } }
     }
 
     /**
      * Setup views visibility depending on [UIState] states.
-     * @param isShowViewIfSuccess is responsible for displaying views depending on whether
-     * to navigate further or stay this Fragment
+     *
+     * @receiver [UIState]
+     *
+     * @param willShowViewIfSuccess whether to show views if the request is successful
      */
     protected fun <T> UIState<T>.setupViewVisibility(
-        group: Group, loader: CircularProgressIndicator, isShowViewIfSuccess: Boolean = false
+        group: Group, loader: CircularProgressIndicator, willShowViewIfSuccess: Boolean = true
     ) {
         fun showLoader(isVisible: Boolean) {
             group.isVisible = !isVisible
@@ -113,18 +112,20 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
             is UIState.Idle -> {}
             is UIState.Loading -> showLoader(true)
             is UIState.Error -> showLoader(false)
-            is UIState.Success -> if (!isShowViewIfSuccess) showLoader(false)
+            is UIState.Success -> showLoader(!willShowViewIfSuccess)
         }
     }
 
     /**
-     * [NetworkError] extension function for setup errors from server side
+     * Extension function for setup errors from server side
+     *
+     * @receiver [NetworkError]
      */
-    fun NetworkError.setupApiErrors(vararg inputs: TextInputLayout) = when (this) {
+    protected fun NetworkError.setupApiErrors(vararg inputs: TextInputLayout) = when (this) {
         is NetworkError.Unexpected -> {
             Toast.makeText(context, this.error, Toast.LENGTH_LONG).show()
         }
-        is NetworkError.Api -> {
+        is NetworkError.ApiInputs -> {
             for (input in inputs) {
                 error[input.tag].also { error ->
                     if (error == null) {
@@ -134,6 +135,25 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
                         this.error.remove(input.tag)
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Launch coroutine with [repeatOnLifecycle] API
+     *
+     * @param state [Lifecycle.State][androidx.lifecycle.Lifecycle.State] in which `block` runs in a new coroutine. That coroutine
+     * will cancel if the lifecycle falls below that state, and will restart if it's in that state
+     * again.
+     * @param block The block to run when the lifecycle is at least in [state] state.
+     */
+    private fun launchRepeatOnLifecycle(
+        state: Lifecycle.State,
+        block: suspend CoroutineScope.() -> Unit
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(state) {
+                block()
             }
         }
     }
